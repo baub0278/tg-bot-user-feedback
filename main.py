@@ -18,3 +18,20 @@ def feedback_handler(update: Update, context: CallbackContext) -> None:
     
     # Send a confirmation message to the user who provided the feedback
     context.bot.send_message(chat_id=update.effective_chat.id, text="Thank you for your feedback!")
+
+    def main() -> None:
+    # Set up the Telegram bot and start the bot
+    bot_token = 'YOUR_BOT_TOKEN_HERE'
+    updater = Updater(bot_token)
+    dispatcher = updater.dispatcher
+    
+    # Register the feedback message handler
+    feedback_handler = MessageHandler(Filters.text & ~Filters.command, feedback_handler)
+    dispatcher.add_handler(feedback_handler)
+
+    # Start the bot
+    updater.start_polling()
+    updater.idle()
+
+if __name__ == '__main__':
+    main()
